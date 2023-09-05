@@ -170,7 +170,7 @@
 
     prompt_collection_item_template_clone.querySelector(
       "a"
-    ).href = `/th/ai_hub/prompt-collection/${prompt_collection["slug"]}`;
+    ).href = `/th/prompt-collection/${prompt_collection["slug"]}`;
 
     if (prompt_collection["multiple_images"]) {
       prompt_collection_item_template_clone.querySelector(
@@ -190,7 +190,7 @@
 
   async function getPromptCollection() {
     try {
-      const res = await fetch(`/en/ai_hub/get-prompt-collection-bookmarks`, {
+      const res = await fetch(`/en/get-prompt-collection-bookmarks`, {
         method: "GET",
         headers: { Accept: "application/json" },
       });

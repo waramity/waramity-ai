@@ -97,7 +97,7 @@
 
 <script type="text/javascript">
   async function fetchGetPrompts() {
-    const res = await fetch(`/en/ai_hub/get-prompts/${pageIndex}`, {
+    const res = await fetch(`/en/get-prompts/${pageIndex}`, {
       method: "GET",
       headers: { Accept: "application/json" },
     });
@@ -115,7 +115,7 @@
 
       prompt_template_clone.querySelector(
         "#link"
-      ).href = `/en/ai_hub/prompt-collection/${payload[i]["prompt"]["slug"]}`;
+      ).href = `/en/prompt-collection/${payload[i]["prompt"]["slug"]}`;
 
       prompt_template_clone.querySelector(
         "#topic"
@@ -206,7 +206,7 @@
   }
 
   async function bookmarkPrompt(user_profile_name, prompt_slug) {
-    const res = await fetch(`/en/ai_hub/prompt-collection/${user_profile_name}/${prompt_slug}/bookmark`, {
+    const res = await fetch(`/en/prompt-collection/${user_profile_name}/${prompt_slug}/bookmark`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
     });
@@ -219,7 +219,7 @@
   }
 
   async function likePrompt(user_profile_name, prompt_slug) {
-    const res = await fetch(`/en/ai_hub/prompt-collection/${user_profile_name}/${prompt_slug}/like`, {
+    const res = await fetch(`/en/prompt-collection/${user_profile_name}/${prompt_slug}/like`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
     });

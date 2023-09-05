@@ -22,7 +22,7 @@ import shutil
 
 from .utils import is_valid_permission, is_valid_profile_name, is_valid_description, is_duplicate_profile_name, is_valid_base64_image, is_valid_topic, is_valid_model_name, is_valid_prompts, is_valid_prompts_comment, is_valid_comment, upload_base64_to_file_system, initial_upload_image
 
-ai_hub = Blueprint('ai_hub', __name__, template_folder='templates', url_prefix='/<lang_code>/ai_hub' )
+ai_hub = Blueprint('ai_hub', __name__, template_folder='templates', url_prefix='/<lang_code>' )
 
 # Multiligual Start
 
@@ -251,7 +251,7 @@ def upload_prompt():
         }
 
         prompt_collection = feature_db.prompt_collection.insert_one(prompt_collection_json)
-        return make_response(jsonify({"status": 1, "redirect_url": '/en/ai_hub/prompt-collection/' + slug}), 200)
+        return make_response(jsonify({"status": 1, "redirect_url": '/en/prompt-collection/' + slug}), 200)
 
 @ai_hub.route('/prompt-collection/<slug>', methods=['GET'])
 def prompt_collection(slug):
@@ -372,7 +372,7 @@ def submit_edit_prompt(slug):
         }
 
         feature_db.prompt_collection.update_one({'_id': prompt_collection['_id'], 'user_id': prompt_collection_creator['_id']},  prompt_collection_json)
-        return make_response(jsonify({"status": 1, "redirect_url": '/en/ai_hub/prompt-collection/' + slug}), 200)
+        return make_response(jsonify({"status": 1, "redirect_url": '/en/prompt-collection/' + slug}), 200)
 
 
 @ai_hub.route('/destroy-prompt/<profile_name>/<slug>', methods=['GET', 'POST'])
@@ -639,7 +639,7 @@ def create_comment(item_type, item_slug):
         if item_type == "prompt_collection":
             item_collection = feature_db.prompt_collection
             spaces_path = 'comments/' + 'collection_' + current_user.get_profile_name() + '_' + comment_slug
-            redirect_url = '/en/ai_hub/prompt-collection/'
+            redirect_url = '/en/prompt-collection/'
 
         for prompt in prompts:
             prompt['image_url'] = upload_base64_to_file_system(current_user.get_profile_name(), spaces_path, prompt['image_url'])

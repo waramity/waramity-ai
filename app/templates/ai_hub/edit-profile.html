@@ -137,7 +137,7 @@
       },
     };
 
-    fetch(`/en/ai_hub/submit-edit-profile`, {
+    fetch(`/en/submit-edit-profile`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -151,7 +151,7 @@
           showErrorMessage(data["error_message"]);
           $("#submit-edit-profile").toggleClass("disabled");
         } else {
-          window.location.pathname = `/en/ai_hub/profile/{{current_user.get_profile_name()}}`;
+          window.location.pathname = `/en/profile/{{current_user.get_profile_name()}}`;
         }
       });
     });

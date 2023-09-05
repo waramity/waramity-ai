@@ -223,7 +223,7 @@
       prompts.prompts.push(prompt_json);
     });
 
-    fetch(`/en/ai_hub/upload-prompt`, {
+    fetch(`/en/upload-prompt`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(prompts),

@@ -506,7 +506,7 @@
     });
 
     try {
-      const response = await fetch(`/en/ai_hub/submit-edit-prompt/${slug}`, {
+      const response = await fetch(`/en/submit-edit-prompt/${slug}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(prompts),
@@ -597,7 +597,7 @@
 
   async function getPromptCollectionInfo(profile_name, slug) {
     const res = await fetch(
-      `/en/ai_hub/get-prompt-collection/${profile_name}/${slug}/edit`,
+      `/en/get-prompt-collection/${profile_name}/${slug}/edit`,
       {
         method: "GET",
         headers: { Accept: "application/json" },

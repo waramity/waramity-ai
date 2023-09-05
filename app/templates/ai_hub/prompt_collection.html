@@ -561,7 +561,7 @@
     }
     $("#heart-button").addClass("disabled");
     fetch(
-      `/en/ai_hub/prompt-collection/{{creator['profile_name']}}/{{prompt_collection['slug']}}/like`,
+      `/en/prompt-collection/{{creator['profile_name']}}/{{prompt_collection['slug']}}/like`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -594,7 +594,7 @@
     }
     $("#bookmark-button").addClass("disabled");
     fetch(
-      `/en/ai_hub/prompt-collection/{{creator['profile_name']}}/{{prompt_collection['slug']}}/bookmark`,
+      `/en/prompt-collection/{{creator['profile_name']}}/{{prompt_collection['slug']}}/bookmark`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -693,7 +693,7 @@
     let follow_json = {
       following_profile_name: "{{creator['profile_name']}}",
     };
-    fetch(`/en/ai_hub/follow`, {
+    fetch(`/en/follow`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -735,7 +735,7 @@
     <button type="button" class="btn btn-outline-primary">
       <a
         class="dropdown-item"
-        href="/en/ai_hub/comment/prompt_collection/{{prompt_collection['slug']}}"
+        href="/en/comment/prompt_collection/{{prompt_collection['slug']}}"
       >
         Add Comment
       </a>
@@ -810,7 +810,7 @@
       return;
     }
     $(`#like-button-${comment_slug}`).addClass("disabled");
-    fetch(`/en/ai_hub/comment/${item_type}/${item_slug}/${comment_slug}/like`, {
+    fetch(`/en/comment/${item_type}/${item_slug}/${comment_slug}/like`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
     }).then((res) => {
@@ -941,7 +941,7 @@
       const link = profile_links[i];
       link.setAttribute(
         "href",
-        `/th/ai_hub/profile/${comment["user"]["profile_name"]}`
+        `/th/profile/${comment["user"]["profile_name"]}`
       );
     }
 
@@ -961,7 +961,7 @@
   }
 
   function getComments(item_type, item_slug, user_slug) {
-    fetch(`/en/ai_hub/get-comments/${item_type}/${item_slug}`, {
+    fetch(`/en/get-comments/${item_type}/${item_slug}`, {
       method: "GET",
       headers: { Accept: "application/json" },
     }).then((res) => {
@@ -985,7 +985,7 @@
   }
 
   async function deleteComment(comment_slug) {
-    fetch(`/en/ai_hub/delete-comment/${comment_slug}`, {
+    fetch(`/en/delete-comment/${comment_slug}`, {
       method: "POST",
       headers: { Accept: "application/json" },
     }).then((res) => {

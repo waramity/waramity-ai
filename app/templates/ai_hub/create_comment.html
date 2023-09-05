@@ -489,7 +489,7 @@
       prompts.prompts.push(prompt_json);
     });
 
-    fetch(`/en/ai_hub/comment/${item_type}/${item_slug}`, {
+    fetch(`/en/comment/${item_type}/${item_slug}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(prompts),
