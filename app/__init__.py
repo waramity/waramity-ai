@@ -12,8 +12,6 @@ from pymongo import MongoClient
 from flask_login import UserMixin
 from bson import ObjectId
 
-
-
 load_dotenv()
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
@@ -24,7 +22,6 @@ app.debug = True  # Enable debug mode
 app.config.from_object(Config)
 
 babel = Babel(app)
-db = SQLAlchemy()
 client = WebApplicationClient(app.config['GOOGLE_CLIENT_ID'])
 google_client = WebApplicationClient(app.config['GOOGLE_CLIENT_ID'])
 
@@ -36,26 +33,11 @@ mongo_client = MongoClient('localhost', 27017)
 user_db = mongo_client["user"]
 feature_db = mongo_client["feature"]
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
-
 from app.features.main import main as main_blueprint
 app.register_blueprint(main_blueprint)
 
-from app.features.crypto import crypto as crypto_blueprint, socketio as crypto_socket
-app.register_blueprint(crypto_blueprint)
-
-from app.features.dating import dating as dating_blueprint, socketio as dating_socket
-app.register_blueprint(dating_blueprint)
-
-from app.features.auth import auth as auth_blueprint
-app.register_blueprint(auth_blueprint)
-
 from app.features.ai_hub import ai_hub as ai_hub_blueprint
 app.register_blueprint(ai_hub_blueprint)
-
-crypto_socket.init_app(app)
-dating_socket.init_app(app)
-db.init_app(app)
 
 @babel.localeselector
 def get_locale():
@@ -70,7 +52,6 @@ def index():
         get_locale()
     return redirect(url_for('main.index'))
 
-from .models import Social, User as DatingUser, Gender, Passion
 from app.features.ai_hub.models import User as AIUser
 
 @login_manager.user_loader
@@ -84,14 +65,6 @@ def load_user(user_id):
         return DatingUser.query.get(user_id)
 
 with app.app_context():
-    from app.features.dating.utils import social_generator, gender_generator, passion_generator
-    # db.drop_all()
-    db.create_all()
-    social_generator()
-    gender_generator()
-    passion_generator()
-
-    # Check the connection status
     try:
         server_info = mongo_client.server_info()
         if server_info.get('ok') == 1:

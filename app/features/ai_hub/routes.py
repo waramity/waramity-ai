@@ -6,7 +6,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 
 import requests
 import uuid
-from app import db, app, google_client, user_db, feature_db
+from app import app, google_client, user_db, feature_db
 import datetime
 from app.features.ai_hub.models import User
 import re
