@@ -1,0 +1,36 @@
+<style>
+  .intro-header::before {
+    transform: scaleX(0);
+    transform-origin: bottom right;
+  }
+
+  .intro-header:hover::before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  .intro-header::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    inset: 0 0 0 0;
+    background: #7f6ed2;
+    z-index: -1;
+    transition: transform 0.3s ease;
+  }
+
+  .intro-header {
+    position: relative;
+  }
+</style>
+
+<h1 class="display-3 intro-header">
+  {{_('Hello, I\'m Full stack Developer')}}
+</h1>
+<h6 class="fw-lighter fst-italic">
+  {{_('* this website compatible for desktop')}}
+</h6>

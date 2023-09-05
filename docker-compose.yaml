@@ -1,0 +1,16 @@
+version: "3"
+services:
+  web:
+    # image: waramity-portfolio
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      FLASK_DEBUG: "on"
+      FLASK_APP: ./wsgi.py
+          #environment:
+          #j - FLASK_ENV=development
+    ports:
+      - "5001:5001"
+    volumes:
+      - "./app:/app"
