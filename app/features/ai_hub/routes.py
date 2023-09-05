@@ -41,7 +41,7 @@ def before_request():
 
 # Multiligual End
 
-@ai_hub.route('/ai_hub')
+@ai_hub.route('/')
 def index():
 
     if session['platform'] != 'ai_hub':

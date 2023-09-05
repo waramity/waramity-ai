@@ -33,9 +33,6 @@ mongo_client = MongoClient('localhost', 27017)
 user_db = mongo_client["user"]
 feature_db = mongo_client["feature"]
 
-from app.features.main import main as main_blueprint
-app.register_blueprint(main_blueprint)
-
 from app.features.ai_hub import ai_hub as ai_hub_blueprint
 app.register_blueprint(ai_hub_blueprint)
 
