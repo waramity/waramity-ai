@@ -132,7 +132,7 @@ def upload_base64_to_file_system(profile_name, directory_path, base64_data):
 def initial_upload_image(profile_name, image_url, directory_path, old_image_url=""):
     if not image_url.startswith('\\static\\assets\\images\\ai_hub\\'):
         is_valid_base64_image(image_url)
-        if old_image_url is not "":
+        if old_image_url != "":
             os.remove(os.getcwd() + '\\app' + old_image_url)
         cdn_url = upload_base64_to_file_system(profile_name, directory_path, image_url)
     elif image_url == current_user.get_profile_image():
