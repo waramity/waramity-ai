@@ -49,7 +49,7 @@ def get_locale():
 def index():
     if not g.get('lang_code', None):
         get_locale()
-    return redirect(url_for('main.index'))
+    return redirect(url_for('ai_hub.index'))
 
 from app.features.ai_hub.models import User as AIUser
 
