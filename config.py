@@ -1,14 +1,12 @@
 import os
 from dotenv import dotenv_values
 
-print(os.environ.get("GOOGLE_CLIENT_ID"))
 config = dotenv_values(".env")
-print()
-
 
 class Config:
     DEBUG = False
     TESTING = False
+    APP_ENV=config['APP_ENV']
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = config['SECRET_KEY']
@@ -18,6 +16,8 @@ class Config:
     GOOGLE_DISCOVERY_URL = (
         "https://accounts.google.com/.well-known/openid-configuration"
     )
+    MONGO_HOST=config["MONGO_HOST"]
+    MONGO_PORT=config["MONGO_PORT"]
 
 class DevelopmentConfig(Config):
     DEBUG = True
