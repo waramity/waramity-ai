@@ -110,8 +110,6 @@ def upload_base64_to_file_system(profile_name, directory_path, base64_data):
 
     unique_id = uuid.uuid4().hex
 
-    # directory_path = "app\\static\\assets\\images\\ai_hub\\" + directory_path
-
     directory_path = os.path.join("app", "static", "assets", "images", "ai_hub", directory_path)
 
     os.makedirs(directory_path, exist_ok=True)
