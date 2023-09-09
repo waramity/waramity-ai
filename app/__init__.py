@@ -29,8 +29,8 @@ login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 login_manager.init_app(app)
 
-# mongo_client = MongoClient('localhost', 27017)
-mongo_client = MongoClient('waramity-mongo', 27017)
+mongo_client = MongoClient('localhost', 27017)
+# mongo_client = MongoClient('waramity-mongo', 27017)
 
 user_db = mongo_client["user"]
 feature_db = mongo_client["feature"]
