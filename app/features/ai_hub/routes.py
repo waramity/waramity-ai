@@ -1,5 +1,5 @@
 from flask import (render_template, Blueprint, g, redirect,
-                   request, current_app, abort, url_for, jsonify, make_response, json, session)
+                   request, current_app, abort, url_for, jsonify, make_response, json, session, flash)
 
 from flask_babel import _, refresh
 from flask_login import login_user, logout_user, login_required, current_user
