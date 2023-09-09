@@ -29,8 +29,8 @@ login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 login_manager.init_app(app)
 
-# mongo_client = MongoClient('localhost', 27017)
-mongo_client = MongoClient('waramity-mongo', 27017)
+mongo_client = MongoClient('localhost', 27017)
+# mongo_client = MongoClient('waramity-mongo', 27017)
 
 user_db = mongo_client["user"]
 feature_db = mongo_client["feature"]
@@ -55,13 +55,10 @@ from app.features.ai_hub.models import User as AIUser
 
 @login_manager.user_loader
 def load_user(user_id):
-    if user_id.startswith('mongo_'):
-        user_json = user_db.profile.find_one({'_id': user_id})
-        if not user_json:
-            return None
-        return AIUser(user_json)
-    else:
-        return DatingUser.query.get(user_id)
+    user_json = user_db.profile.find_one({'_id': user_id})
+    if not user_json:
+        return None
+    return AIUser(user_json)
 
 with app.app_context():
     try:
