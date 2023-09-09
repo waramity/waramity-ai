@@ -403,13 +403,9 @@ def destroy_prompt(profile_name, slug):
 
             prompt_folder_name = prompt_collection['prompts'][0]['image_url'].split("\\")[6]
 
-            prompt_directory_path = os.getcwd() + '\\app\\static\\assets\\images\\ai_hub\\prompt_collections\\' + prompt_folder_name
-            print(prompt_directory_path)
+            prompt_directory_path = '\\app\\static\\assets\\images\\ai_hub\\prompt_collections\\' + prompt_folder_name
             prompt_directory_components = prompt_directory_path.split("\\")
-            print(prompt_directory_components)
             prompt_directory_path = os.path.join(*prompt_directory_components)
-            prompt_directory_path = prompt_directory_components[0] + "\\" + os.path.join(*prompt_directory_components[1:])
-            print(prompt_directory_path)
             shutil.rmtree(prompt_directory_path)
             feature_db.prompt_collection.delete_one({'_id': prompt_collection['_id']})
             return redirect(url_for('ai_hub.index'))
