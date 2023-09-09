@@ -46,8 +46,7 @@ def index():
     if current_user.is_authenticated:
         if current_user.get_profile_name() is None:
             return redirect(url_for('ai_hub.create_profile'))
-    prompts = feature_db.prompt_collection.find()
-    return render_template('ai_hub/index.html', title=_('waramity portfolio'), prompts=prompts)
+    return render_template('ai_hub/index.html', title=_('waramity portfolio'))
 
 @ai_hub.route('/get-prompts/<int:page_index>', methods=["GET"])
 def get_prompts(page_index):
