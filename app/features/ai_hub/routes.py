@@ -70,6 +70,7 @@ def get_prompts(page_index):
                     combined_object['like'] = True
                 if bookmark:
                     combined_object['bookmark'] = True
+                prompt_payload.append(combined_object)
             else:
                 prompt.pop("_id")
                 combined_object = {
@@ -401,9 +402,10 @@ def destroy_prompt(profile_name, slug):
 
             user_db.profile.find_one_and_update({'_id': prompt_collection['user_id']}, {'$inc': {'total_engagement.likes': -like_result.deleted_count, 'total_engagement.bookmarks': -bookmark_result.deleted_count, 'total_engagement.comments': -deleted_comment.deleted_count}}, return_document=False)
 
+
             prompt_folder_name = prompt_collection['prompts'][0]['image_url'].split("\\")[6]
 
-            prompt_directory_path = '\\app\\static\\assets\\images\\ai_hub\\prompt_collections\\' + prompt_folder_name
+            prompt_directory_path = 'app\\static\\assets\\images\\ai_hub\\prompt_collections\\' + prompt_folder_name
             prompt_directory_components = prompt_directory_path.split("\\")
             prompt_directory_path = os.path.join(*prompt_directory_components)
             shutil.rmtree(prompt_directory_path)
