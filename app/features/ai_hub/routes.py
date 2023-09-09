@@ -392,7 +392,7 @@ def destroy_prompt(profile_name, slug):
 
             if comments and len(comments) > 0:
                 comment_folder_name = comments[0]['prompts'][0]['image_url'].split("\\")[6]
-                comment_directory_path = os.getcwd() + '\\app\\static\\assets\\images\\ai_hub\\comments\\' + comment_folder_name
+                comment_directory_path = 'app\\static\\assets\\images\\ai_hub\\comments\\' + comment_folder_name
                 comment_directory_components = comment_directory_path.split("\\")
                 comment_directory_path = os.path.join(*comment_directory_components)
                 shutil.rmtree(comment_directory_path)
