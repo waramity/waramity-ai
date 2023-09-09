@@ -76,7 +76,7 @@ def get_prompts(page_index):
                     'prompt': prompt,
                     'user': user
                 }
-        prompt_payload.append(combined_object)
+                prompt_payload.append(combined_object)
 
     return make_response(jsonify({"status": 0, 'payload': prompt_payload}), 200)
 
@@ -392,14 +392,25 @@ def destroy_prompt(profile_name, slug):
 
             if comments and len(comments) > 0:
                 comment_folder_name = comments[0]['prompts'][0]['image_url'].split("\\")[6]
-                shutil.rmtree(os.getcwd() + '\\app\\static\\assets\\images\\ai_hub\\comments\\' + comment_folder_name)
+                comment_directory_path = os.getcwd() + '\\app\\static\\assets\\images\\ai_hub\\comments\\' + comment_folder_name
+                comment_directory_components = comment_directory_path.split("\\")
+                comment_directory_path = os.path.join(*comment_directory_components)
+                shutil.rmtree(comment_directory_path)
 
             deleted_comment = feature_db.comment.delete_many({ 'item.id': prompt_collection['_id'], 'item.type': 'prompt_collection'})
 
             user_db.profile.find_one_and_update({'_id': prompt_collection['user_id']}, {'$inc': {'total_engagement.likes': -like_result.deleted_count, 'total_engagement.bookmarks': -bookmark_result.deleted_count, 'total_engagement.comments': -deleted_comment.deleted_count}}, return_document=False)
 
             prompt_folder_name = prompt_collection['prompts'][0]['image_url'].split("\\")[6]
-            shutil.rmtree(os.getcwd() + '\\app\\static\\assets\\images\\ai_hub\\prompt_collections\\' + prompt_folder_name)
+
+            prompt_directory_path = os.getcwd() + '\\app\\static\\assets\\images\\ai_hub\\prompt_collections\\' + prompt_folder_name
+            print(prompt_directory_path)
+            prompt_directory_components = prompt_directory_path.split("\\")
+            print(prompt_directory_components)
+            prompt_directory_path = os.path.join(*prompt_directory_components)
+            prompt_directory_path = prompt_directory_components[0] + "\\" + os.path.join(*prompt_directory_components[1:])
+            print(prompt_directory_path)
+            shutil.rmtree(prompt_directory_path)
             feature_db.prompt_collection.delete_one({'_id': prompt_collection['_id']})
             return redirect(url_for('ai_hub.index'))
         else:
