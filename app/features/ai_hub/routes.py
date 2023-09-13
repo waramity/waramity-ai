@@ -177,6 +177,52 @@ def google_auth_callback():
     session['platform'] = 'ai_hub'
     return redirect(url_for('ai_hub.index'))
 
+@ai_hub.route("/dating-google-auth")
+def dating_google_auth():
+    google_provider_cfg = get_google_provider_cfg()
+    authorization_endpoint = google_provider_cfg["authorization_endpoint"]
+
+    request_uri = google_client.prepare_request_uri(
+        authorization_endpoint,
+        redirect_uri=request.base_url + "/callback",
+        scope=["openid", "email"],
+    )
+
+    return redirect(request_uri)
+
+@ai_hub.route("/dating-google-auth/callback")
+def dating_google_auth_callback():
+    code = request.args.get("code")
+
+    google_provider_cfg = get_google_provider_cfg()
+    token_endpoint = google_provider_cfg["token_endpoint"]
+
+    token_url, headers, body = google_client.prepare_token_request(
+        token_endpoint,
+        authorization_response=request.url,
+        redirect_url=request.base_url,
+        code=code
+    )
+    token_response = requests.post(
+        token_url,
+        headers=headers,
+        data=body,
+        auth=(app.config['GOOGLE_CLIENT_ID'], app.config['GOOGLE_CLIENT_SECRET']),
+    )
+
+    google_client.parse_request_body_response(json.dumps(token_response.json()))
+
+    userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
+    uri, headers, body = google_client.add_token(userinfo_endpoint)
+    userinfo_response = requests.get(uri, headers=headers, data=body)
+
+    if userinfo_response.json().get("email_verified"):
+        social_auth_id = userinfo_response.json()["sub"]
+    else:
+        return "User email not available or not verified by Google.", 400
+
+    return jsonify({"social_auth_id": social_auth_id}), 200 
+
 @ai_hub.route("/create-profile", methods=['GET'])
 @login_required
 def create_profile():
