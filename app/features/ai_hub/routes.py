@@ -221,7 +221,14 @@ def dating_google_auth_callback():
     else:
         return "User email not available or not verified by Google.", 400
 
-    return jsonify({"social_auth_id": social_auth_id}), 200 
+
+    # Build the URL with the query parameters
+    redirect_url = "https://dating.waramity.com/en/dating-auth/" + social_auth_id
+
+    # Redirect to the new URL
+    return redirect(redirect_url, code=302)
+
+    # return jsonify({"social_auth_id": social_auth_id}), 200
 
 @ai_hub.route("/create-profile", methods=['GET'])
 @login_required
